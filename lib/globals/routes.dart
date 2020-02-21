@@ -11,7 +11,7 @@ Route<dynamic> onGeneratedRoutes(RouteSettings settings) {
       break;
     case "countries":
       return MaterialPageRoute(
-          builder: (_) => CountryScreen(code: settings.arguments),
+          builder: (_) => CountryScreen(continent: settings.arguments),
           settings: settings);
       break;
     default:

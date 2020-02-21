@@ -23,11 +23,17 @@ class Country {
         emoji = json["emoji"],
         emojiU = json["emojiU"];
 
-  static get query => r"""
+  static get query => """
   {
-    continent(code: \$code) {
+    continent(code: "\$code") {
+      name
       countries {
         name
+        code
+        native
+        phone
+        emoji
+        emojiU
       }
     }
   }

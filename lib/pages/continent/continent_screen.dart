@@ -56,7 +56,7 @@ class ContinentList extends StatelessWidget {
               trailing: Icon(Icons.chevron_right),
               onTap: () {
                 Navigator.pushNamed(context, "countries",
-                    arguments: continents[i].code);
+                    arguments: continents[i]);
               },
             );
           },
