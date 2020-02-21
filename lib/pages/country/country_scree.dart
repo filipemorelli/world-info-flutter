@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:world_info/classes/Continent.dart';
@@ -28,7 +26,13 @@ class _CountryScreenState extends State<CountryScreen> {
         if (result.data == null) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(widget.continent.name),
+              title: Hero(
+                tag: widget.continent.name,
+                child: Text(
+                  widget.continent.name,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
               centerTitle: true,
             ),
             body: Center(child: CircularProgressIndicator()),

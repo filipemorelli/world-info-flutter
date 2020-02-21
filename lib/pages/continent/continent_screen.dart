@@ -52,7 +52,13 @@ class ContinentList extends StatelessWidget {
                 child: Text(continents[i].code),
                 foregroundColor: Colors.indigo,
               ),
-              title: Text(continents[i].name),
+              title: Hero(
+                tag: continents[i].name,
+                child: Text(
+                  continents[i].name,
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
               trailing: Icon(Icons.chevron_right),
               onTap: () {
                 Navigator.pushNamed(context, "countries",
