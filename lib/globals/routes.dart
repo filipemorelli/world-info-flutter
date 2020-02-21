@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:world_info/pages/home/home_screen.dart';
+import 'package:world_info/pages/continent/continent_screen.dart';
+import 'package:world_info/pages/country/country_scree.dart';
 import 'package:world_info/pages/not_found/not_found_screen.dart';
 
 Route<dynamic> onGeneratedRoutes(RouteSettings settings) {
   switch (settings.name) {
-    case "home":
+    case "continents":
       return MaterialPageRoute(
-          builder: (_) => HomeScreen(), settings: settings);
+          builder: (_) => ContinentScreen(), settings: settings);
+      break;
+    case "countries":
+      return MaterialPageRoute(
+          builder: (_) => CountryScreen(code: settings.arguments),
+          settings: settings);
       break;
     default:
       return MaterialPageRoute(
