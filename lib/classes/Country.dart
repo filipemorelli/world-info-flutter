@@ -21,6 +21,9 @@ class Country {
         phone = json["phone"],
         currency = json["currency"],
         emoji = json["emoji"],
+        languages = List.from(json["languages"] ?? [])
+            .map((language) => Language.fromJson(language))
+            .toList(),
         emojiU = json["emojiU"];
 
   static get query => """

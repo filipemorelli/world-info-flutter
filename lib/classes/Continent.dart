@@ -36,6 +36,12 @@ class Continent {
           phone
           emoji
           emojiU
+          languages {
+            name
+            code
+            native
+            rtl
+          }
         }
       }
     }

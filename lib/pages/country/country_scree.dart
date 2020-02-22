@@ -50,7 +50,8 @@ class _CountryScreenState extends State<CountryScreen> {
                 ),
                 title: Text(countries[i].name),
                 trailing: Icon(Icons.chevron_right),
-                onTap: () {},
+                onTap: () => Navigator.pushNamed(context, "states",
+                    arguments: countries[i]),
               );
             },
           ),
