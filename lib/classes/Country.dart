@@ -26,6 +26,9 @@ class Country {
             .toList(),
         emojiU = json["emojiU"];
 
+  String get speakLanguages =>
+      languages.map((language) => language.name).toList().join(", ");
+
   static get query => """
   {
     continent(code: "\$code") {
@@ -37,6 +40,7 @@ class Country {
         phone
         emoji
         emojiU
+        currency
       }
     }
   }

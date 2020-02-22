@@ -36,6 +36,7 @@ class Continent {
           phone
           emoji
           emojiU
+          currency
           languages {
             name
             code
