@@ -87,15 +87,11 @@ class _StateScreenState extends State<StateScreen> {
   Widget buildFlagCountry() {
     return Container(
       margin: EdgeInsets.only(right: 15),
-      child: CircleAvatar(
-        radius: 45,
-        foregroundColor: Colors.indigo.shade400,
-        child: Hero(
-          tag: widget.country.emoji,
-          child: Text(
-            widget.country.emoji,
-            style: TextStyle(fontSize: 72),
-          ),
+      child: Hero(
+        tag: widget.country.emoji,
+        child: Text(
+          widget.country.emoji,
+          style: TextStyle(fontSize: 72),
         ),
       ),
     );
