@@ -12,7 +12,7 @@ class Country {
   List<Language> languages;
   String emoji;
   String emojiU;
-  List<State> states;
+  List<CountryState> states;
 
   Country.fromJson(Map<String, dynamic> json)
       : code = json["code"],
@@ -29,18 +29,12 @@ class Country {
   String get speakLanguages =>
       languages.map((language) => language.name).toList().join(", ");
 
-  static get query => """
+  String get queryGetStates => """
   {
-    continent(code: "\$code") {
-      name
-      countries {
-        name
+    country(code: "$code") {
+      states {
         code
-        native
-        phone
-        emoji
-        emojiU
-        currency
+        name
       }
     }
   }

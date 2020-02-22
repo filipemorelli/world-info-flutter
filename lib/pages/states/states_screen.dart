@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:world_info/classes/Country.dart';
+import 'package:world_info/classes/State.dart';
 
 class StateScreen extends StatefulWidget {
   final Country country;
@@ -19,19 +21,42 @@ class _StateScreenState extends State<StateScreen> {
         title: Text(widget.country.name),
       ),
       body: SafeArea(
-        bottom: false,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              buildContryInformation(),
-              Text("Olá mundo lindo"),
-            ],
-          ),
-        ),
-      ),
+          bottom: false,
+          child: Query(
+            options: QueryOptions(
+              documentNode: gql(widget.country.queryGetStates),
+            ),
+            builder: (QueryResult result,
+                {VoidCallback refetch, FetchMore fetchMore}) {
+              if (result.data == null) {
+                return Center(child: CircularProgressIndicator());
+              }
+
+              List<CountryState> states = List<Map<String, dynamic>>.from(
+                      result.data["country"]["states"])
+                  .map((state) => CountryState.fromJson(state))
+                  .toList();
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    buildContryInformation(),
+                    ...states.map((state) {
+                      return ListTile(
+                        leading: CircleAvatar(
+                          child: Text(state.code),
+                          foregroundColor: Colors.indigo,
+                        ),
+                        title: Text(state.name),
+                      );
+                    }).toList()
+                  ],
+                ),
+              );
+            },
+          )),
     );
   }
 
