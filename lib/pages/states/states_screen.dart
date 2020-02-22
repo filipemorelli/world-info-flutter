@@ -21,43 +21,52 @@ class _StateScreenState extends State<StateScreen> {
         title: Text(widget.country.name),
       ),
       body: SafeArea(
-          bottom: false,
-          child: Query(
-            options: QueryOptions(
-              documentNode: gql(widget.country.queryGetStates),
-            ),
-            builder: (QueryResult result,
-                {VoidCallback refetch, FetchMore fetchMore}) {
-              if (result.data == null) {
-                return Center(child: CircularProgressIndicator());
-              }
+        bottom: false,
+        child: Query(
+          options: QueryOptions(
+            documentNode: gql(widget.country.queryGetStates),
+          ),
+          builder: (QueryResult result,
+              {VoidCallback refetch, FetchMore fetchMore}) {
+            if (result.data == null) {
+              return Center(child: CircularProgressIndicator());
+            }
 
-              List<CountryState> states = List<Map<String, dynamic>>.from(
-                      result.data["country"]["states"])
-                  .map((state) => CountryState.fromJson(state))
-                  .toList();
-              return SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    buildContryInformation(),
-                    ...states.map((state) {
-                      return ListTile(
-                        leading: CircleAvatar(
-                          child: Text(state.code),
-                          foregroundColor: Colors.indigo,
-                        ),
-                        title: Text(state.name),
-                      );
-                    }).toList()
-                  ],
-                ),
-              );
-            },
-          )),
+            List<CountryState> states = List<Map<String, dynamic>>.from(
+                    result.data["country"]["states"])
+                .map((state) => CountryState.fromJson(state))
+                .toList();
+            return SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  buildContryInformation(),
+                  ...buildStatesList(states)
+                ],
+              ),
+            );
+          },
+        ),
+      ),
     );
+  }
+
+  List<Widget> buildStatesList(List<CountryState> states) {
+    return states.length > 0
+        ? states.map((state) {
+            return ListTile(
+              leading: state.code != null
+                  ? CircleAvatar(
+                      child: Text(state.code),
+                      foregroundColor: Colors.indigo,
+                    )
+                  : null,
+              title: Text(state.name),
+            );
+          }).toList()
+        : [ListTile(title: Text("Not Found States"))];
   }
 
   Widget buildContryInformation() {
@@ -81,9 +90,12 @@ class _StateScreenState extends State<StateScreen> {
       child: CircleAvatar(
         radius: 45,
         foregroundColor: Colors.indigo.shade400,
-        child: Text(
-          widget.country.emoji,
-          style: TextStyle(fontSize: 72),
+        child: Hero(
+          tag: widget.country.emoji,
+          child: Text(
+            widget.country.emoji,
+            style: TextStyle(fontSize: 72),
+          ),
         ),
       ),
     );

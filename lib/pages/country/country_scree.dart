@@ -44,9 +44,12 @@ class _CountryScreenState extends State<CountryScreen> {
             itemCount: countries.length,
             itemBuilder: (BuildContext ctx, int i) {
               return ListTile(
-                leading: Text(
-                  countries[i].emoji,
-                  style: TextStyle(fontSize: 36),
+                leading: Hero(
+                  tag: countries[i].emoji,
+                  child: Text(
+                    countries[i].emoji,
+                    style: TextStyle(fontSize: 36),
+                  ),
                 ),
                 title: Text(countries[i].name),
                 trailing: Icon(Icons.chevron_right),
