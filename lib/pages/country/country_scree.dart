@@ -4,7 +4,7 @@ import 'package:world_info/classes/Continent.dart';
 import 'package:world_info/classes/Country.dart';
 
 class CountryScreen extends StatefulWidget {
-  Continent continent;
+  final Continent continent;
 
   CountryScreen({@required this.continent});
 
