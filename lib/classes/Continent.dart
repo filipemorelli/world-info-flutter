@@ -24,4 +24,20 @@ class Continent {
     }
   }
   """;
+
+  String get queryGetCountries => """
+    {
+      continent(code: "$code") {
+        name
+        countries {
+          name
+          code
+          native
+          phone
+          emoji
+          emojiU
+        }
+      }
+    }
+    """;
 }

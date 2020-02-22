@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:world_info/classes/Continent.dart';
@@ -19,9 +17,7 @@ class _CountryScreenState extends State<CountryScreen> {
   Widget build(BuildContext context) {
     return Query(
       options: QueryOptions(
-        documentNode: gql(Country.query
-            .toString()
-            .replaceAll("\$code", widget.continent.code)),
+        documentNode: gql(widget.continent.queryGetCountries),
       ),
       builder: (QueryResult result,
           {VoidCallback refetch, FetchMore fetchMore}) {
